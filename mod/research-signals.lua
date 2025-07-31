@@ -1,6 +1,16 @@
 local constants = require("constants")
 
+---@type table<string, boolean>
 local signal_name_registry = {}
+
+
+local function build_signal_name_registry()
+    for name, signals in pairs(prototypes.virtual_signal) do
+        if signals.subgroup.name == constants.technology_signals_sub_group then
+            signal_name_registry[name] = true
+        end
+    end
+end
 
 -- Finds all infinite research technologies in the game
 -- should support modded infinite researches
@@ -50,7 +60,6 @@ local function register_technology_signal(technology)
             order = "a"
         }
     })
-    signal_name_registry[technology.name] = true
 end
 
 local function register_all_technology_signals()
@@ -62,5 +71,6 @@ end
 
 return {
     register_all_technology_signals = register_all_technology_signals,
-    signal_name_registry = signal_name_registry
+    signal_name_registry = signal_name_registry,
+    build_signal_name_registry = build_signal_name_registry,
 }
