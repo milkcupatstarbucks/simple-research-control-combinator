@@ -5,7 +5,10 @@ function update_research(e)
         return
     end
     for id, entity in pairs(storage.research_controllers) do
-        if not(entity and entity.valid) then
+        if entity == nil then
+            goto continue
+        end
+        if not entity.valid then
             goto continue
         end
         local behavior = entity.get_or_create_control_behavior()
@@ -49,7 +52,7 @@ end
 
 function create_entity(e)
     local entity = e.entity
-    if entity == nil or entity.name ~= "research-controller" then
+    if not entity.valid or entity.name ~= "research-controller" then
         return
     end
     if storage.research_controllers == nil then
@@ -62,11 +65,11 @@ end
 
 function destroy_entity(e)
     local entity = e.entity
-    if not entity or entity.valid or entity.name ~= "research-controller" then
+    if not entity.valid or entity.name ~= "research-controller" then
         return
     end
     storage.research_controllers[entity.unit_number] = nil
-    if table_size(global.research_controllers) == 0 then
+    if table_size(storage.research_controllers) == 0 then
         storage.research_controllers = nil
         script.on_nth_tick(60, nil)
     end
