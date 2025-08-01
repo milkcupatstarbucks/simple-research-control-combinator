@@ -55,7 +55,8 @@ data:extend({{
   energy_required = 120,
   ingredients = {
     {type = "item", name = "quantum-processor", amount = 420},
-    {type = "item", name = "raw-fish", amount = 69}
+    {type = "item", name = "raw-fish", amount = 69},
+    {type = "item", name = "biolab", amount = 10}
   },
   results = {{type = "item", name = "research-controller", amount = 1}}
 }})
